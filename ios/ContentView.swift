@@ -35,7 +35,7 @@ struct ContentView: View {
                         UIApplication.shared.open(url)
                     }
                 }) {
-                    Text("Open URL")
+                    Text("\n\nOpen URL")
                 }
             }
         }

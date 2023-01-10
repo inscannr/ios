@@ -1,9 +1,10 @@
 import SwiftUI
 import CodeScanner
+import SafariServices
 
 struct ContentView: View {
     @State var isPresentingScanner = false
-    @State var scannedCode: String = "Scan a QR code:"
+    @State var scannedCode: String = "Scan a QR code."
     
     var scannerSheet : some View {
         CodeScannerView(
@@ -28,8 +29,24 @@ struct ContentView: View {
             .sheet(isPresented: $isPresentingScanner) {
                 self.scannerSheet
             }
+            if isValidUrl(scannedCode){
+                Button(action: {
+                    if let url = URL(string: self.scannedCode) {
+                        UIApplication.shared.open(url)
+                    }
+                }) {
+                    Text("Open URL")
+                }
+            }
         }
     }
+}
+
+func isValidUrl(_ url: String) -> Bool {
+    if (url.contains("https")) {
+        return true
+    }
+    return false
 }
 
 struct ContentView_Previews: PreviewProvider {
